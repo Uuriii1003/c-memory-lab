@@ -6,36 +6,41 @@
   <meta name="theme-color" content="#101112">
   <meta name="description" content="Learn how C works beneath the surface with interactive, simulated memory labs.">
   <title>C Memory Lab — Pointers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <aside class="sidebar">
-    <a class="brand" href="./" aria-label="C Memory Lab home"><span class="brand-icon">C<span>_</span></span><span>C Memory Lab<small>UNDERSTAND THE UNDERLYING</small></span></a>
-    <div class="workspace-label">WORKSPACE <span>v0.1</span></div>
-    <a class="dashboard-link" href="#modules"><span aria-hidden="true">▦</span> Lab overview <span class="count">6</span></a>
+    <a class="brand" href="./" aria-label="C Memory Lab home"><span class="brand-icon" aria-hidden="true">C<span>_</span></span><span>C Memory Lab<small>UNDERSTAND THE UNDERLYING</small></span></a>
+    <div class="workspace-label">WORKSPACE <span>v0.2</span></div>
+    <a class="dashboard-link" href="#modules"><span aria-hidden="true">▦</span> Lab overview <span class="count" id="module-count">6</span></a>
     <div class="nav-label">LEARNING MODULES</div>
     <nav aria-label="Learning modules" id="module-nav"></nav>
     <div class="sidebar-bottom"><span class="status-dot"></span> Local. Safe. Simulated.<p>No compiler required.<br>Just you and the memory.</p><div class="footer-mark">C MEMORY LAB <span>↗</span></div></div>
   </aside>
   <div class="page">
-    <header class="topbar"><div><span class="breadcrumb">Workspace</span><span class="slash">/</span> Lab overview</div><span class="version"><span class="status-dot"></span> VERSION 0.1 <span class="tag">Preview</span></span></header>
+    <header class="topbar"><div><span class="breadcrumb">Workspace</span><span class="slash">/</span> <span id="crumb">Pointers</span></div><span class="version"><span class="status-dot"></span> VERSION 0.2 <span class="tag">Preview</span></span></header>
     <main id="main">
       <section class="intro"><div class="eyebrow">A LOOK BENEATH THE SURFACE</div><h1>Small programs. <span>Big understanding.</span></h1><p>Explore the memory behind your code. Build the foundations for operating systems<br class="wide-break"> and computer security, one statement at a time.</p><div class="intro-note"><span aria-hidden="true">⌘</span> C fundamentals <span>·</span> Interactive memory <span>·</span> Learn by stepping</div></section>
-      <section id="modules" aria-labelledby="modules-heading"><div class="section-heading"><h2 id="modules-heading">Your learning path</h2><span>01 / 06 modules available</span></div><div class="module-grid" id="module-grid"></div></section>
-      <section class="lab" id="pointers-lab" aria-labelledby="lab-title">
-        <div class="lab-heading"><div class="lab-icon" aria-hidden="true">↗</div><div><div class="eyebrow">MODULE 01 <span class="active-tag">INTERACTIVE</span></div><h2 id="lab-title">Pointers, made visible.</h2><p>A pointer holds an address. Let’s see what that actually means.</p></div><span class="lab-number">01</span></div>
-        <div class="lab-toolbar"><div><span class="status-dot"></span> pointer_basics.c <span class="file-tag">C</span></div><span>GUIDED SIMULATION</span></div>
+      <section id="modules" aria-labelledby="modules-heading"><div class="section-heading"><h2 id="modules-heading">Your learning path</h2><span id="available-count"></span></div><div class="module-grid" id="module-grid"></div></section>
+      <section class="lab" id="lab" aria-labelledby="lab-title">
+        <div class="lab-heading"><div class="lab-icon" id="lab-icon" aria-hidden="true"></div><div><div class="eyebrow"><span id="lab-module"></span> <span class="active-tag">INTERACTIVE</span></div><h2 id="lab-title" tabindex="-1"></h2><p id="lab-subtitle"></p></div><span class="lab-number" id="lab-number" aria-hidden="true"></span></div>
+        <div class="lab-toolbar"><div><span class="status-dot"></span> <span id="lab-file"></span> <span class="file-tag">C</span></div><span class="lab-hint">← → KEYS STEP</span></div>
         <div class="lab-content">
-          <div class="code-pane"><div class="pane-label">SOURCE CODE <span>3 statements</span></div><div class="code-block" aria-label="C statements"><div class="code-line" id="line-1"><span class="line-number">1</span><code><span class="syntax-type">int</span> x = <span class="syntax-number">10</span>;</code><span class="line-indicator" aria-hidden="true">←</span></div><div class="code-line" id="line-2"><span class="line-number">2</span><code><span class="syntax-type">int</span> *p = <span class="syntax-operator">&amp;</span>x;</code><span class="line-indicator" aria-hidden="true">←</span></div><div class="code-line" id="line-3"><span class="line-number">3</span><code><span class="syntax-operator">*</span>p = <span class="syntax-number">20</span>;</code><span class="line-indicator" aria-hidden="true">←</span></div></div><div class="explanation" aria-live="polite" aria-atomic="true"><div class="step-label" id="step-label"></div><h3 id="step-title"></h3><p id="step-description"></p></div></div>
-          <div class="memory-pane"><div class="pane-label">MEMORY VIEW <span class="simulated-tag">SIMULATED</span></div><div class="memory-columns"><span>VARIABLE / TYPE</span><span>VALUE</span><span>ADDRESS</span></div><div id="memory-view" aria-live="polite" aria-atomic="true"></div><div class="memory-message" id="memory-message"></div><div class="address-note"><span aria-hidden="true">ⓘ</span><p>Illustrative addresses only. Actual memory addresses vary by system and runtime.</p></div></div>
+          <div class="code-pane"><div class="pane-label">SOURCE CODE <span id="code-count"></span></div><div class="code-block" id="code-block" role="group" aria-label="C source code"></div><div class="explanation"><div class="step-label" id="step-label"></div><h3 id="step-title"></h3><p id="step-description"></p></div></div>
+          <div class="memory-pane"><div class="pane-label">MEMORY VIEW <span class="simulated-tag">SIMULATED</span></div><div class="memory-columns" aria-hidden="true"><span>VARIABLE / TYPE</span><span>VALUE</span><span>ADDRESS</span></div><div id="memory-view"></div><div class="memory-message" id="memory-message"></div><div class="address-note"><span aria-hidden="true">ⓘ</span><p id="address-note"></p></div></div>
         </div>
-        <div class="lab-controls"><button class="reset-button" id="reset-button"><span aria-hidden="true">↺</span> Reset lab</button><div class="step-controls"><span class="step-counter" id="step-counter">Step 1 of 3</span><div class="step-dots" aria-hidden="true"><span></span><span></span><span></span></div><button class="back-button" id="back-button">Back</button><button class="next-button" id="next-button">Next statement <span aria-hidden="true">→</span></button></div></div>
+        <div class="lab-controls"><button class="reset-button" id="reset-button" type="button"><span aria-hidden="true">↺</span> Reset lab</button><div class="step-controls"><span class="step-counter" id="step-counter"></span><div class="step-dots" id="step-dots" aria-hidden="true"></div><button class="back-button" id="back-button" type="button">Back</button><button class="next-button" id="next-button" type="button">Next statement <span aria-hidden="true">→</span></button></div></div>
+        <p class="sr-only" id="live-region" aria-live="polite" aria-atomic="true"></p>
       </section>
-      <section class="learning-notes" aria-label="Pointer concepts"><article class="operator-card"><span class="operator">&amp;</span><div><h3>The address-of operator</h3><p><code>&amp;x</code> asks, “Where does x live?” It gives you the address of the variable, not its value.</p></div></article><article class="operator-card"><span class="operator">*</span><div><h3>The dereference operator</h3><p><code>*p</code> asks, “What lives at this address?” Read or change the value that p points to. In a declaration like <code>int *p</code>, the star declares a pointer instead.</p></div></article></section>
-      <section class="why-card"><div class="why-icon" aria-hidden="true">⌁</div><div><div class="eyebrow">CONNECT THE DOTS</div><h3>Why this matters in OS &amp; Security</h3><p>Operating systems use pointers to work with memory, pass data to system calls, and manage data structures. Understanding where a pointer leads is also the first step to recognizing invalid memory access, dangling pointers, and memory corruption.</p></div><span class="why-tag">FOUNDATIONS THAT MATTER</span></section>
-      <footer class="page-footer"><span>Made for curious minds. Built close to the metal.</span><span>C Memory Lab <span class="footer-version">/ v0.1</span></span></footer>
+      <section class="learning-notes" id="notes" aria-label="Key concepts"></section>
+      <section class="quiz" id="quiz" aria-label="Quick check"></section>
+      <section class="why-card"><div class="why-icon" aria-hidden="true">⌁</div><div><div class="eyebrow">CONNECT THE DOTS</div><h3>Why this matters in OS &amp; Security</h3><p id="why-text"></p></div><span class="why-tag">FOUNDATIONS THAT MATTER</span></section>
+      <footer class="page-footer"><span>Made for curious minds. Built close to the metal.</span><span>C Memory Lab <span class="footer-version">/ v0.2</span></span></footer>
     </main>
   </div>
 </body>
